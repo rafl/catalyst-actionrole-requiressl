@@ -16,7 +16,8 @@ sub insecure : Path('insecure') {
 
 sub secure : Path('secure') Does('RequireSSL') {
     my ($self, $ctx) = @_;
-    $ctx->response->body($ctx->request->secure ? 'secure' : 'insecure');
+    die 42 unless $ctx->request->secure;
+    $ctx->response->body('secure');
 }
 
 __PACKAGE__->meta->make_immutable;
